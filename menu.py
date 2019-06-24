@@ -11,10 +11,14 @@ def selectTable(myCursor):
 
 def initializeDB():
     try:
-        conn = mysql.connect(host='localhost',user='root',passwd='')
+        rootpass = input("Input password: ")
+        print("\n")
+        conn = mysql.connect(host='localhost',user='root',passwd=rootpass)
         cursor = conn.cursor()
+        cursor.execute("use data_analysis")
         print("Database connected and cursor initialized. Showing tables.\n")
-        cursor.execute('show tables')
+        cursor.execute("show tables")
+        cursor.fetchall()
         return cursor
     except:
         print("Connection error")
@@ -27,3 +31,5 @@ def main():
     myCursor = initializeDB()
     selectTable(myCursor)
     showTable(myCursor)
+
+main()
